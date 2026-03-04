@@ -259,7 +259,7 @@ function Records({ rescues, T }) {
 
   const cards = [
     {
-      icon: "📅",
+      icon: "📊",
       label: "Busiest month",
       value: records.busiest?.label ?? "—",
       sub: records.busiest ? `${records.busiest.count} rescues` : "",
@@ -385,7 +385,7 @@ function RescueModal({ rescue, onClose, onPrev, onNext, hasPrev, hasNext, T }) {
           <h2 style={{ fontFamily: "'Outfit', system-ui, sans-serif", fontSize: 26, fontWeight: 700, color: T.text, margin: "0 0 10px", lineHeight: 1.2 }}>{rescue.species}</h2>
 
           <div style={{ display: "flex", gap: 20, flexWrap: "wrap", marginBottom: 20, fontSize: 12, color: T.textMuted, fontFamily: "'Inter', system-ui, sans-serif" }}>
-            {rescue.date && <span><Em>📅</Em> {rescue.date}</span>}
+            {rescue.date && <span><Em>🗒️</Em> {rescue.date}</span>}
             {rescue.location && <span><Em>📍</Em> {rescue.location}</span>}
           </div>
 
