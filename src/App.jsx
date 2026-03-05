@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 // ── CONFIG ────────────────────────────────────────────────────────────────────
 const DATA_URL = "./rescue-data.json";
 const CURRENT_YEAR = new Date().getFullYear();
-const YEAR_COLORS = ["#7a9e72", "#6b8a9e", "#b8965a", "#8a7aaa", "#b86858"];
+const YEAR_COLORS = ["#8fbe86", "#7aaec4", "#d4a85e", "#a894cc", "#d4756a"];
 
 const VENOMOUS_KEYWORDS = ["cobra", "viper", "krait", "saw-scaled"];
 const isVenomous = (r) => r.venomous ?? VENOMOUS_KEYWORDS.some(k => r.species?.toLowerCase().includes(k));
@@ -47,13 +47,13 @@ const Em = ({ children, style = {} }) => (
 // ── THEME ─────────────────────────────────────────────────────────────────────
 const THEMES = {
   dark: {
-    bg: "#111110",
-    bgGradient: "radial-gradient(ellipse at 20% 0%, rgba(55,48,36,0.35) 0%, transparent 60%)",
-    surface: "#1c1b19",
+    bg: "#16140f",
+    bgGradient: "radial-gradient(ellipse at 20% 0%, rgba(65,52,30,0.3) 0%, transparent 60%)",
+    surface: "#1f1c16",
     headerBorder: "rgba(255,255,255,0.05)",
-    text: "#e2ddd5",
-    textMuted: "rgba(226,221,213,0.45)",
-    textFaint: "rgba(226,221,213,0.25)",
+    text: "#f0ebe0",
+    textMuted: "rgba(240,235,224,0.6)",
+    textFaint: "rgba(240,235,224,0.32)",
     navBorder: "rgba(255,255,255,0.04)",
     navBtnBorder: "rgba(255,255,255,0.07)",
     inputBg: "rgba(255,255,255,0.04)",
@@ -538,17 +538,18 @@ export default function App() {
 
   const C = {
     navBtn: (active) => ({
-      padding: "6px 14px", borderRadius: 7,
-      border: active ? "1px solid rgba(93,186,110,0.4)" : `1px solid ${T.navBtnBorder}`,
-      background: active ? "rgba(122,158,114,0.1)" : "transparent",
-      color: active ? "#7a9e72" : T.textFaint,
-      cursor: "pointer", fontSize: 11, fontFamily: "'Inter', system-ui, sans-serif",
-      fontWeight: 600, letterSpacing: "0.06em", transition: "all 0.15s",
+      padding: "6px 16px", borderRadius: 0,
+      border: "none",
+      borderBottom: active ? "2px solid #c8873a" : "2px solid transparent",
+      background: "transparent",
+      color: active ? "#c8873a" : T.textFaint,
+      cursor: "pointer", fontSize: 11, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
+      fontWeight: 500, letterSpacing: "0.1em", transition: "all 0.15s",
     }),
-    input: { background: T.inputBg, border: `1px solid ${T.inputBorder}`, borderRadius: 8, padding: "9px 14px", color: T.text, fontSize: 14, fontFamily: "'Inter', system-ui, sans-serif", outline: "none" },
-    select: { background: T.inputBg, border: `1px solid ${T.inputBorder}`, borderRadius: 8, padding: "7px 12px", color: T.text, fontSize: 12, fontFamily: "'Inter', system-ui, sans-serif", outline: "none", cursor: "pointer" },
-    btn: (color = "#7a9e72") => ({ background: `${color}18`, border: `1px solid ${color}40`, color, borderRadius: 8, padding: "9px 20px", cursor: "pointer", fontSize: 11, fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 600, letterSpacing: "0.07em", transition: "all 0.15s" }),
-    label: { fontFamily: "'Inter', system-ui, sans-serif", fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", color: T.textFaint, marginBottom: 14, textTransform: "uppercase" },
+    input: { background: T.inputBg, border: `1px solid ${T.inputBorder}`, borderRadius: 4, padding: "9px 14px", color: T.text, fontSize: 14, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", outline: "none" },
+    select: { background: T.inputBg, border: `1px solid ${T.inputBorder}`, borderRadius: 4, padding: "7px 12px", color: T.text, fontSize: 12, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", outline: "none", cursor: "pointer" },
+    btn: (color = "#c8873a") => ({ background: `${color}15`, border: `1px solid ${color}40`, color, borderRadius: 4, padding: "9px 20px", cursor: "pointer", fontSize: 11, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontWeight: 500, letterSpacing: "0.07em", transition: "all 0.15s" }),
+    label: { fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontSize: 10, fontWeight: 700, letterSpacing: "0.16em", color: T.textFaint, marginBottom: 14, textTransform: "uppercase" },
     section: { marginBottom: 44 },
   };
 
@@ -568,9 +569,9 @@ export default function App() {
   );
 
   return (
-    <div style={{ minHeight: "100vh", background: T.bg, backgroundImage: T.bgGradient, color: T.text, fontFamily: "'Inter', system-ui, sans-serif", transition: "background 0.3s, color 0.3s" }}>
+    <div style={{ minHeight: "100vh", background: T.bg, backgroundImage: T.bgGradient, color: T.text, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", transition: "background 0.3s, color 0.3s" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -584,14 +585,14 @@ export default function App() {
       <header style={{ padding: "22px 28px", borderBottom: `1px solid ${T.headerBorder}`, display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
         <div>
           <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", color: T.textFaint, marginBottom: 6 }}>SHIFTINGRADIUS.COM</div>
-          <h1 style={{ fontFamily: "'Outfit', system-ui, sans-serif", fontSize: 22, fontWeight: 900, margin: 0, color: T.text, letterSpacing: "-0.01em" }}><Em>🐍</Em> Snake Rescue Dashboard</h1>
-          <div style={{ fontSize: 12, color: T.textFaint, marginTop: 4, fontWeight: 500 }}>Bangalore - 2022 to {Math.max(...years)}</div>
+          <h1 style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontSize: 22, fontWeight: 800, margin: 0, color: T.text, letterSpacing: "-0.02em" }}><Em>🐍</Em> Snake Rescue Dashboard</h1>
+          <div style={{ fontSize: 11, color: T.textFaint, marginTop: 5, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontWeight: 500, letterSpacing: "0.04em" }}>Sandeep Nanu's rescue data from in and around Kengeri, Bangalore. 2022–{Math.max(...years)}</div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-          {[[meta.total, "RESCUES"], [meta.venomous, "VENOMOUS"], [meta.nonVenomous, "NON-VENOM"], [meta.withVideo, "VIDEOS"]].map(([n, l]) => (
-            <div key={l} style={{ textAlign: "center" }}>
-              <div style={{ fontFamily: "'Outfit', system-ui, sans-serif", fontSize: 20, fontWeight: 700, color: "#7a9e72", lineHeight: 1 }}>{n}</div>
-              <div style={{ fontSize: 8, fontWeight: 700, color: T.textFaint, letterSpacing: "0.18em", marginTop: 3 }}>{l}</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 28 }}>
+          {[[meta.total, "rescues"], [meta.venomous, "venomous"], [meta.nonVenomous, "non-venom"], [meta.withVideo, "videos"]].map(([n, l]) => (
+            <div key={l} style={{ textAlign: "right" }}>
+              <div style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontSize: 22, fontWeight: 500, color: T.text, lineHeight: 1 }}>{n}</div>
+              <div style={{ fontSize: 9, color: T.textFaint, letterSpacing: "0.1em", marginTop: 4, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" }}>{l}</div>
             </div>
           ))}
           <button onClick={() => setDarkMode(!darkMode)} title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
@@ -614,15 +615,15 @@ export default function App() {
         {mode === "home" && (
           <div>
             <div style={{ maxWidth: 620, marginBottom: 40 }}>
-              <p style={{ fontSize: 16, lineHeight: 1.9, color: T.textMuted, margin: "0 0 12px" }}>
+              <p style={{ fontSize: 16, lineHeight: 1.85, color: T.textMuted, margin: "0 0 12px", fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" }}>
                 A four-year field record: {meta.total} rescues, {meta.speciesCount} species, {meta.venPct}% venomous. From residential gardens to storm drains, every snake in and around where I live, that got a second chance is logged here. What is not logged is an equal (or more) number of calls when we didn't get to even see the snake after reaching the spot.
               </p>
-              <p style={{ fontSize: 13, lineHeight: 1.7, color: T.textMuted, margin: 0, fontStyle: "italic" }}>
+              <p style={{ fontSize: 13, lineHeight: 1.7, color: T.textMuted, margin: 0, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" }}>
                 Annual figures cover completed years only.
               </p>
               <p style={{ fontSize: 12, lineHeight: 1.7, color: T.textMuted, margin: "4px 0 0", opacity: 0.7 }}>
                 Data sourced from:{" "}
-                <a href="https://shiftingradius.com/snake-rescues" target="_blank" rel="noopener noreferrer" style={{ color: "#7a9e72", textDecoration: "none" }}>
+                <a href="https://shiftingradius.com/snake-rescues" target="_blank" rel="noopener noreferrer" style={{ color: "#c8873a", textDecoration: "none" }}>
                   shiftingradius.com/snake-rescues
                 </a>
               </p>
@@ -640,8 +641,8 @@ export default function App() {
                       onMouseEnter={e => { e.currentTarget.style.background = `${col}22`; e.currentTarget.style.borderColor = `${col}50`; }}
                       onMouseLeave={e => { e.currentTarget.style.background = `${col}12`; e.currentTarget.style.borderColor = `${col}25`; }}
                     >
-                      <div style={{ fontFamily: "'Outfit', system-ui, sans-serif", fontSize: 24, fontWeight: 700, color: col }}>{yearCounts[y]}</div>
-                      <div style={{ fontSize: 10, fontWeight: 600, color: T.textFaint, letterSpacing: "0.15em", marginTop: 4 }}>{y}</div>
+                      <div style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontSize: 28, fontWeight: 500, color: col, lineHeight: 1 }}>{yearCounts[y]}</div>
+                      <div style={{ fontSize: 10, color: T.textFaint, letterSpacing: "0.12em", marginTop: 6, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" }}>{y}</div>
                     </div>
                   );
                 })}
@@ -684,7 +685,7 @@ export default function App() {
                     onMouseLeave={e => { e.currentTarget.style.background = T.rowBg; }}
                   >
                     <Em style={{ fontSize: 24, marginBottom: 10, display: "block" }}>{item.icon}</Em>
-                    <div style={{ fontFamily: "'Outfit', system-ui, sans-serif", fontSize: 15, fontWeight: 600, color: T.text, marginBottom: 4 }}>{item.label}</div>
+                    <div style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontSize: 17, fontWeight: 600, color: T.text, marginBottom: 4 }}>{item.label}</div>
                     <div style={{ fontSize: 11, color: T.textMuted }}>{item.sub}</div>
                   </div>
                 ))}
@@ -718,15 +719,22 @@ export default function App() {
         {/* ── BROWSE ── */}
         {mode === "browse" && (
           <div>
-            {/* Year + type filters */}
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12, alignItems: "center" }}>
-              {years.map(y => (
-                <button key={y} onClick={() => setBrowseYear(y)} style={{ ...C.navBtn(browseYear === y), fontSize: 12 }}>{y}</button>
-              ))}
-              <div style={{ height: 20, width: 1, background: T.navBtnBorder }} />
-              {[["all","ALL"],["venomous","⚠ VENOMOUS"],["nonvenomous","✓ SAFE"],["video","▶ VIDEO"]].map(([f, l]) => (
-                <button key={f} onClick={() => setBrowseFilter(f)} style={C.navBtn(browseFilter === f)}>{l}</button>
-              ))}
+            {/* Filters */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 16 }}>
+              {/* Year row */}
+              <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                <span style={{ ...C.label, marginBottom: 0, minWidth: 44 }}>Year</span>
+                {years.map(y => (
+                  <button key={y} onClick={() => setBrowseYear(y)} style={{ ...C.navBtn(browseYear === y), fontSize: 12 }}>{y}</button>
+                ))}
+              </div>
+              {/* Type row */}
+              <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                <span style={{ ...C.label, marginBottom: 0, minWidth: 44 }}>Filter</span>
+                {[["all","All"],["venomous","Venomous"],["nonvenomous","Non-venomous"],["video","With video"]].map(([f, l]) => (
+                  <button key={f} onClick={() => setBrowseFilter(f)} style={C.navBtn(browseFilter === f)}>{l}</button>
+                ))}
+              </div>
             </div>
 
             {/* Species filter */}
