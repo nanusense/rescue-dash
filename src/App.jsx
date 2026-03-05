@@ -593,23 +593,27 @@ export default function App() {
       `}</style>
 
       {/* HEADER */}
-      <header style={{ padding: "22px 28px", borderBottom: `1px solid ${T.headerBorder}`, display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
-        <div>
-          <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", color: T.textFaint, marginBottom: 6 }}>SHIFTINGRADIUS.COM</div>
-          <h1 style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontSize: 22, fontWeight: 800, margin: 0, color: T.text, letterSpacing: "-0.02em" }}><Em>🐍</Em> Snake Rescue Dashboard</h1>
-          <div style={{ fontSize: 11, color: T.textFaint, marginTop: 5, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontWeight: 500, letterSpacing: "0.04em" }}>Sandeep Nanu's rescue data from in and around Kengeri, Bangalore. 2022–{Math.max(...years)}</div>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
-          {[[meta.total, "rescues"], [meta.venomous, "venomous"], [meta.nonVenomous, "non-venom"], [meta.withVideo, "videos"]].map(([n, l]) => (
-            <div key={l} style={{ textAlign: "right" }}>
-              <div style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontSize: 22, fontWeight: 500, color: T.text, lineHeight: 1 }}>{n}</div>
-              <div style={{ fontSize: 9, color: T.textFaint, letterSpacing: "0.1em", marginTop: 4, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", whiteSpace: "nowrap" }}>{l}</div>
-            </div>
-          ))}
+      <header style={{ padding: "22px 28px", borderBottom: `1px solid ${T.headerBorder}`, display: "flex", flexDirection: "column", gap: 14 }}>
+        {/* Row 1: title + toggle */}
+        <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", color: T.textFaint, marginBottom: 6 }}>SHIFTINGRADIUS.COM</div>
+            <h1 style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontSize: 22, fontWeight: 800, margin: 0, color: T.text, letterSpacing: "-0.02em" }}><Em>🐍</Em> Snake Rescue Dashboard</h1>
+            <div style={{ fontSize: 11, color: T.textFaint, marginTop: 5, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontWeight: 500, letterSpacing: "0.04em" }}>Sandeep Nanu's rescue data from in and around Kengeri, Bangalore. 2022–{Math.max(...years)}</div>
+          </div>
           <button onClick={() => setDarkMode(!darkMode)} title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
-            style={{ background: T.toggleBg, border: `1px solid ${T.toggleBorder}`, color: T.textMuted, borderRadius: 8, padding: "7px 11px", cursor: "pointer", fontSize: 15, lineHeight: 1, transition: "all 0.2s", display: "flex", alignItems: "center" }}>
+            style={{ background: T.toggleBg, border: `1px solid ${T.toggleBorder}`, color: T.textMuted, borderRadius: 8, padding: "7px 11px", cursor: "pointer", fontSize: 15, lineHeight: 1, transition: "all 0.2s", display: "flex", alignItems: "center", flexShrink: 0 }}>
             <Em>{darkMode ? "☀️" : "🌙"}</Em>
           </button>
+        </div>
+        {/* Row 2: stats */}
+        <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
+          {[[meta.total, "rescues"], [meta.venomous, "venomous"], [meta.nonVenomous, "non-venom"], [meta.withVideo, "videos"]].map(([n, l]) => (
+            <div key={l} style={{ textAlign: "left" }}>
+              <div style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontSize: 20, fontWeight: 500, color: T.text, lineHeight: 1 }}>{n}</div>
+              <div style={{ fontSize: 9, color: T.textFaint, letterSpacing: "0.1em", marginTop: 3, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", whiteSpace: "nowrap" }}>{l}</div>
+            </div>
+          ))}
         </div>
       </header>
 
