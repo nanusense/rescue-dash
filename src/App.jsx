@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 // ── CONFIG ────────────────────────────────────────────────────────────────────
 const DATA_URL = "./rescue-data.json";
 const CURRENT_YEAR = new Date().getFullYear();
-const YEAR_COLORS = ["#5dba6e", "#6aacde", "#e8c44a", "#c47ade", "#e05c3a"];
+const YEAR_COLORS = ["#7a9e72", "#6b8a9e", "#b8965a", "#8a7aaa", "#b86858"];
 
 const VENOMOUS_KEYWORDS = ["cobra", "viper", "krait", "saw-scaled"];
 const isVenomous = (r) => r.venomous ?? VENOMOUS_KEYWORDS.some(k => r.species?.toLowerCase().includes(k));
@@ -47,32 +47,32 @@ const Em = ({ children, style = {} }) => (
 // ── THEME ─────────────────────────────────────────────────────────────────────
 const THEMES = {
   dark: {
-    bg: "#060e08",
-    bgGradient: "radial-gradient(ellipse at 15% 0%, rgba(18,42,20,0.7) 0%, transparent 55%), radial-gradient(ellipse at 85% 100%, rgba(35,15,5,0.5) 0%, transparent 55%)",
-    surface: "#0b1610",
-    headerBorder: "rgba(255,255,255,0.06)",
-    text: "#e8dcc8",
-    textMuted: "rgba(255,255,255,0.38)",
-    textFaint: "rgba(255,255,255,0.22)",
+    bg: "#111110",
+    bgGradient: "radial-gradient(ellipse at 20% 0%, rgba(55,48,36,0.35) 0%, transparent 60%)",
+    surface: "#1c1b19",
+    headerBorder: "rgba(255,255,255,0.05)",
+    text: "#e2ddd5",
+    textMuted: "rgba(226,221,213,0.45)",
+    textFaint: "rgba(226,221,213,0.25)",
     navBorder: "rgba(255,255,255,0.04)",
-    navBtnBorder: "rgba(255,255,255,0.08)",
-    inputBg: "rgba(255,255,255,0.05)",
-    inputBorder: "rgba(255,255,255,0.12)",
-    rowBg: "rgba(255,255,255,0.03)",
-    rowHoverBg: "rgba(255,255,255,0.07)",
-    cardBg: "rgba(255,255,255,0.025)",
-    barTrack: "rgba(255,255,255,0.07)",
-    modalOverlay: "rgba(0,0,0,0.85)",
-    scrollbar: "rgba(255,255,255,0.1)",
-    toggleBg: "rgba(255,255,255,0.07)",
-    toggleBorder: "rgba(255,255,255,0.12)",
-    tableBorder: "rgba(255,255,255,0.06)",
-    tableRowHover: "rgba(255,255,255,0.04)",
+    navBtnBorder: "rgba(255,255,255,0.07)",
+    inputBg: "rgba(255,255,255,0.04)",
+    inputBorder: "rgba(255,255,255,0.10)",
+    rowBg: "rgba(255,255,255,0.02)",
+    rowHoverBg: "rgba(255,255,255,0.05)",
+    cardBg: "rgba(255,255,255,0.02)",
+    barTrack: "rgba(255,255,255,0.06)",
+    modalOverlay: "rgba(0,0,0,0.82)",
+    scrollbar: "rgba(255,255,255,0.08)",
+    toggleBg: "rgba(255,255,255,0.06)",
+    toggleBorder: "rgba(255,255,255,0.10)",
+    tableBorder: "rgba(255,255,255,0.05)",
+    tableRowHover: "rgba(255,255,255,0.03)",
   },
   light: {
-    bg: "#f0ece0",
-    bgGradient: "radial-gradient(ellipse at 15% 0%, rgba(160,215,165,0.2) 0%, transparent 55%), radial-gradient(ellipse at 85% 100%, rgba(220,195,155,0.18) 0%, transparent 55%)",
-    surface: "#fdfcfa",
+    bg: "#f2ede4",
+    bgGradient: "radial-gradient(ellipse at 15% 0%, rgba(180,165,130,0.15) 0%, transparent 55%)",
+    surface: "#fdfcf9",
     headerBorder: "rgba(0,0,0,0.07)",
     text: "#1c2018",
     textMuted: "rgba(0,0,0,0.45)",
@@ -203,7 +203,7 @@ function YearTrends({ rescues, years, T }) {
                 </div>
               </td>
               <td style={{ padding: "11px 12px", textAlign: "right", color: T.text, fontWeight: 600 }}>{r.total}</td>
-              <td style={{ padding: "11px 12px", textAlign: "right", color: r.venPct > 60 ? "#e05c3a" : T.textMuted }}>{r.venPct}%</td>
+              <td style={{ padding: "11px 12px", textAlign: "right", color: r.venPct > 60 ? "#b86858" : T.textMuted }}>{r.venPct}%</td>
               <td style={{ padding: "11px 12px", textAlign: "right", color: T.textMuted }}>{r.perMonth}</td>
             </tr>
           ))}
@@ -263,14 +263,14 @@ function Records({ rescues, T }) {
       label: "Busiest month",
       value: records.busiest?.label ?? "—",
       sub: records.busiest ? `${records.busiest.count} rescues` : "",
-      color: "#6aacde",
+      color: "#6b8a9e",
     },
     {
       icon: "🐍",
       label: "Most rescued",
       value: records.topSpecies?.[0] ?? "—",
       sub: records.topSpecies ? `${records.topSpecies[1]} rescues total` : "",
-      color: "#5dba6e",
+      color: "#7a9e72",
     },
     {
       icon: "🔭",
@@ -346,7 +346,7 @@ function YouTubeEmbed({ videoId, T }) {
 // ── RESCUE MODAL ──────────────────────────────────────────────────────────────
 function RescueModal({ rescue, onClose, onPrev, onNext, hasPrev, hasNext, T }) {
   const venom = isVenomous(rescue);
-  const accent = venom ? "#e05c3a" : "#5dba6e";
+  const accent = venom ? "#b86858" : "#7a9e72";
 
   useEffect(() => {
     const handler = (e) => {
@@ -416,7 +416,7 @@ function RescueModal({ rescue, onClose, onPrev, onNext, hasPrev, hasNext, T }) {
 // ── COMPACT ROW (browse mode) ─────────────────────────────────────────────────
 function RescueRow({ rescue, onClick, T }) {
   const venom = isVenomous(rescue);
-  const accent = venom ? "#e05c3a" : "#5dba6e";
+  const accent = venom ? "#b86858" : "#7a9e72";
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -444,7 +444,7 @@ function RescueRow({ rescue, onClick, T }) {
         <div style={{ fontSize: 11, color: T.textMuted, fontFamily: "'Inter', system-ui, sans-serif" }}>{rescue.date} - {rescue.location}</div>
       </div>
       <div style={{ display: "flex", gap: 5, flexShrink: 0 }}>
-        <span style={{ fontSize: 9, padding: "2px 7px", borderRadius: 4, background: venom ? "rgba(224,92,58,0.12)" : "rgba(93,186,110,0.1)", color: accent, fontWeight: 700, fontFamily: "'Inter', system-ui, sans-serif" }}>
+        <span style={{ fontSize: 9, padding: "2px 7px", borderRadius: 4, background: venom ? "rgba(224,92,58,0.12)" : "rgba(122,158,114,0.1)", color: accent, fontWeight: 700, fontFamily: "'Inter', system-ui, sans-serif" }}>
           {venom ? "⚠" : "✓"}
         </span>
         {rescue.youtubeId && <span style={{ fontSize: 9, padding: "2px 7px", borderRadius: 4, background: "rgba(255,40,40,0.1)", color: "#e05050", fontWeight: 700, fontFamily: "'Inter', system-ui, sans-serif" }}>▶</span>}
@@ -540,14 +540,14 @@ export default function App() {
     navBtn: (active) => ({
       padding: "6px 14px", borderRadius: 7,
       border: active ? "1px solid rgba(93,186,110,0.4)" : `1px solid ${T.navBtnBorder}`,
-      background: active ? "rgba(93,186,110,0.1)" : "transparent",
-      color: active ? "#5dba6e" : T.textFaint,
+      background: active ? "rgba(122,158,114,0.1)" : "transparent",
+      color: active ? "#7a9e72" : T.textFaint,
       cursor: "pointer", fontSize: 11, fontFamily: "'Inter', system-ui, sans-serif",
       fontWeight: 600, letterSpacing: "0.06em", transition: "all 0.15s",
     }),
     input: { background: T.inputBg, border: `1px solid ${T.inputBorder}`, borderRadius: 8, padding: "9px 14px", color: T.text, fontSize: 14, fontFamily: "'Inter', system-ui, sans-serif", outline: "none" },
     select: { background: T.inputBg, border: `1px solid ${T.inputBorder}`, borderRadius: 8, padding: "7px 12px", color: T.text, fontSize: 12, fontFamily: "'Inter', system-ui, sans-serif", outline: "none", cursor: "pointer" },
-    btn: (color = "#5dba6e") => ({ background: `${color}18`, border: `1px solid ${color}40`, color, borderRadius: 8, padding: "9px 20px", cursor: "pointer", fontSize: 11, fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 600, letterSpacing: "0.07em", transition: "all 0.15s" }),
+    btn: (color = "#7a9e72") => ({ background: `${color}18`, border: `1px solid ${color}40`, color, borderRadius: 8, padding: "9px 20px", cursor: "pointer", fontSize: 11, fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 600, letterSpacing: "0.07em", transition: "all 0.15s" }),
     label: { fontFamily: "'Inter', system-ui, sans-serif", fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", color: T.textFaint, marginBottom: 14, textTransform: "uppercase" },
     section: { marginBottom: 44 },
   };
@@ -559,7 +559,7 @@ export default function App() {
   );
 
   if (error) return (
-    <div style={{ minHeight: "100vh", background: THEMES.dark.bg, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Inter', system-ui, sans-serif", color: "#e05c3a", padding: 24 }}>
+    <div style={{ minHeight: "100vh", background: THEMES.dark.bg, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Inter', system-ui, sans-serif", color: "#b86858", padding: 24 }}>
       <div style={{ maxWidth: 480, textAlign: "center" }}>
         <div style={{ fontSize: 13, marginBottom: 8, letterSpacing: "0.15em", fontWeight: 600 }}>FAILED TO LOAD DATA</div>
         <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", lineHeight: 1.7 }}>{error}</div>
@@ -590,7 +590,7 @@ export default function App() {
         <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
           {[[meta.total, "RESCUES"], [meta.venomous, "VENOMOUS"], [meta.nonVenomous, "NON-VENOM"], [meta.withVideo, "VIDEOS"]].map(([n, l]) => (
             <div key={l} style={{ textAlign: "center" }}>
-              <div style={{ fontFamily: "'Outfit', system-ui, sans-serif", fontSize: 20, fontWeight: 700, color: "#5dba6e", lineHeight: 1 }}>{n}</div>
+              <div style={{ fontFamily: "'Outfit', system-ui, sans-serif", fontSize: 20, fontWeight: 700, color: "#7a9e72", lineHeight: 1 }}>{n}</div>
               <div style={{ fontSize: 8, fontWeight: 700, color: T.textFaint, letterSpacing: "0.18em", marginTop: 3 }}>{l}</div>
             </div>
           ))}
@@ -622,7 +622,7 @@ export default function App() {
               </p>
               <p style={{ fontSize: 12, lineHeight: 1.7, color: T.textMuted, margin: "4px 0 0", opacity: 0.7 }}>
                 Data sourced from:{" "}
-                <a href="https://shiftingradius.com/snake-rescues" target="_blank" rel="noopener noreferrer" style={{ color: "#5dba6e", textDecoration: "none" }}>
+                <a href="https://shiftingradius.com/snake-rescues" target="_blank" rel="noopener noreferrer" style={{ color: "#7a9e72", textDecoration: "none" }}>
                   shiftingradius.com/snake-rescues
                 </a>
               </p>
@@ -674,9 +674,9 @@ export default function App() {
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 10 }}>
                 {[
                   { icon: "🎲", label: "Random rescue", sub: `Pull any of the ${meta.total}`, action: () => { setMode("random"); rollRandom(); }, color: "#e8c44a" },
-                  { icon: "🔍", label: "Find by number", sub: "Jump to any rescue #", action: () => setMode("lookup"), color: "#6aacde" },
-                  { icon: "📹", label: "Only with video", sub: `${meta.withVideo} rescues have footage`, action: () => { setMode("browse"); setBrowseFilter("video"); }, color: "#e05c3a" },
-                  { icon: "⚠️", label: "Venomous only", sub: `${meta.venomous} of the big ones`, action: () => { setMode("browse"); setBrowseFilter("venomous"); }, color: "#e05c3a" },
+                  { icon: "🔍", label: "Find by number", sub: "Jump to any rescue #", action: () => setMode("lookup"), color: "#6b8a9e" },
+                  { icon: "📹", label: "Only with video", sub: `${meta.withVideo} rescues have footage`, action: () => { setMode("browse"); setBrowseFilter("video"); }, color: "#b86858" },
+                  { icon: "⚠️", label: "Venomous only", sub: `${meta.venomous} of the big ones`, action: () => { setMode("browse"); setBrowseFilter("venomous"); }, color: "#b86858" },
                 ].map(item => (
                   <div key={item.label} onClick={item.action}
                     style={{ background: T.rowBg, border: `1px solid ${item.color}18`, borderRadius: 12, padding: "18px", cursor: "pointer", transition: "all 0.2s" }}
@@ -740,7 +740,7 @@ export default function App() {
                 {allSpecies.map(s => <option key={s} value={s}>{s}</option>)}
               </select>
               {browseSpecies && (
-                <button onClick={() => setBrowseSpecies("")} style={{ ...C.btn("#e05c3a"), padding: "7px 14px" }}>✕ Clear</button>
+                <button onClick={() => setBrowseSpecies("")} style={{ ...C.btn("#b86858"), padding: "7px 14px" }}>✕ Clear</button>
               )}
             </div>
 
@@ -763,7 +763,7 @@ export default function App() {
               <input type="number" min={1} max={meta.latestRescue} value={lookupVal} onChange={e => setLookupVal(e.target.value)} onKeyDown={e => { if (e.key === "Enter") handleLookup(lookupVal); }} placeholder="e.g. 56" style={{ ...C.input, width: 110 }} />
               <button onClick={() => handleLookup(lookupVal)} style={C.btn()}>FIND RESCUE →</button>
             </div>
-            {lookupError && <div style={{ fontSize: 13, color: "#e05c3a", marginBottom: 16 }}>{lookupError}</div>}
+            {lookupError && <div style={{ fontSize: 13, color: "#b86858", marginBottom: 16 }}>{lookupError}</div>}
             <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", color: T.textFaint, marginBottom: 12 }}>NOTABLE NUMBERS</div>
             <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
               {[1, 6, 50, 100, 150, 200, 250, 300, 350, meta.latestRescue].map(n => (
