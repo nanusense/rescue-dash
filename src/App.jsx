@@ -289,7 +289,7 @@ function Records({ rescues, T }) {
   ];
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 10 }}>
+    <div className="two-col-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 10 }}>
       {cards.map(c => (
         <div key={c.label} style={{ background: T.cardBg, border: `1px solid ${c.color}20`, borderRadius: 12, padding: "18px 20px" }}>
           <Em style={{ fontSize: 22, marginBottom: 10, display: "block" }}>{c.icon}</Em>
@@ -544,7 +544,7 @@ export default function App() {
       background: "transparent",
       color: active ? "#c8873a" : T.textFaint,
       cursor: "pointer", fontSize: 11, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
-      fontWeight: 500, letterSpacing: "0.1em", transition: "all 0.15s",
+      fontWeight: 500, letterSpacing: "0.1em", transition: "all 0.15s", whiteSpace: "nowrap",
     }),
     input: { background: T.inputBg, border: `1px solid ${T.inputBorder}`, borderRadius: 4, padding: "9px 14px", color: T.text, fontSize: 14, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", outline: "none" },
     select: { background: T.inputBg, border: `1px solid ${T.inputBorder}`, borderRadius: 4, padding: "7px 12px", color: T.text, fontSize: 12, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", outline: "none", cursor: "pointer" },
@@ -573,6 +573,17 @@ export default function App() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        @media (max-width: 480px) {
+          header { padding: 16px 16px !important; }
+          header h1 { font-size: 19px !important; }
+          main { padding: 24px 16px !important; }
+          nav button { font-size: 9px !important; padding: 6px 10px !important; letter-spacing: 0.06em !important; }
+          .year-cards-grid { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 6px !important; }
+          .year-card-num { font-size: 20px !important; }
+          .year-card-label { font-size: 9px !important; }
+          .year-card { padding: 12px 6px !important; min-width: unset !important; border-radius: 8px !important; }
+          .two-col-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: ${T.scrollbar}; border-radius: 3px; }
@@ -588,11 +599,11 @@ export default function App() {
           <h1 style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontSize: 22, fontWeight: 800, margin: 0, color: T.text, letterSpacing: "-0.02em" }}><Em>🐍</Em> Snake Rescue Dashboard</h1>
           <div style={{ fontSize: 11, color: T.textFaint, marginTop: 5, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontWeight: 500, letterSpacing: "0.04em" }}>Sandeep Nanu's rescue data from in and around Kengeri, Bangalore. 2022–{Math.max(...years)}</div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 28 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
           {[[meta.total, "rescues"], [meta.venomous, "venomous"], [meta.nonVenomous, "non-venom"], [meta.withVideo, "videos"]].map(([n, l]) => (
             <div key={l} style={{ textAlign: "right" }}>
               <div style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontSize: 22, fontWeight: 500, color: T.text, lineHeight: 1 }}>{n}</div>
-              <div style={{ fontSize: 9, color: T.textFaint, letterSpacing: "0.1em", marginTop: 4, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" }}>{l}</div>
+              <div style={{ fontSize: 9, color: T.textFaint, letterSpacing: "0.1em", marginTop: 4, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", whiteSpace: "nowrap" }}>{l}</div>
             </div>
           ))}
           <button onClick={() => setDarkMode(!darkMode)} title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
@@ -603,7 +614,7 @@ export default function App() {
       </header>
 
       {/* NAV */}
-      <nav style={{ padding: "10px 28px", borderBottom: `1px solid ${T.navBorder}`, display: "flex", gap: 5, flexWrap: "wrap" }}>
+      <nav style={{ padding: "10px 20px", borderBottom: `1px solid ${T.navBorder}`, display: "flex", gap: 2, flexWrap: "nowrap" }}>
         {[["home","HOME"],["species","SPECIES"],["browse","BROWSE"],["lookup","FIND #"],["random","RANDOM"]].map(([id,label]) => (
           <button key={id} style={C.navBtn(mode===id)} onClick={() => { setMode(id); if (id==="random") rollRandom(); }}>{label}</button>
         ))}
@@ -632,17 +643,17 @@ export default function App() {
             {/* Year cards */}
             <div style={C.section}>
               <div style={C.label}>By year</div>
-              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+              <div className="year-cards-grid" style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                 {years.map((y, i) => {
                   const col = YEAR_COLORS[i % YEAR_COLORS.length];
                   return (
-                    <div key={y} onClick={() => { setMode("browse"); setBrowseYear(y); }}
+                    <div key={y} className="year-card" onClick={() => { setMode("browse"); setBrowseYear(y); }}
                       style={{ background: `${col}12`, border: `1px solid ${col}25`, borderRadius: 12, padding: "18px 24px", cursor: "pointer", minWidth: 90, textAlign: "center", transition: "all 0.2s" }}
                       onMouseEnter={e => { e.currentTarget.style.background = `${col}22`; e.currentTarget.style.borderColor = `${col}50`; }}
                       onMouseLeave={e => { e.currentTarget.style.background = `${col}12`; e.currentTarget.style.borderColor = `${col}25`; }}
                     >
-                      <div style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontSize: 28, fontWeight: 500, color: col, lineHeight: 1 }}>{yearCounts[y]}</div>
-                      <div style={{ fontSize: 10, color: T.textFaint, letterSpacing: "0.12em", marginTop: 6, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" }}>{y}</div>
+                      <div className="year-card-num" style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontSize: 28, fontWeight: 500, color: col, lineHeight: 1 }}>{yearCounts[y]}</div>
+                      <div className="year-card-label" style={{ fontSize: 10, color: T.textFaint, letterSpacing: "0.12em", marginTop: 6, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" }}>{y}</div>
                     </div>
                   );
                 })}
@@ -672,7 +683,7 @@ export default function App() {
             {/* Quick actions */}
             <div>
               <div style={C.label}>Quick actions</div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 10 }}>
+              <div className="two-col-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 10 }}>
                 {[
                   { icon: "🎲", label: "Random rescue", sub: `Pull any of the ${meta.total}`, action: () => { setMode("random"); rollRandom(); }, color: "#e8c44a" },
                   { icon: "🔍", label: "Find by number", sub: "Jump to any rescue #", action: () => setMode("lookup"), color: "#6b8a9e" },
