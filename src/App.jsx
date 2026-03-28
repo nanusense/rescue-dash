@@ -353,20 +353,20 @@ function YearTrends({ rescues, years, T }) {
     };
   });
 
-  const cols = ["Year", "Rescues", "Venomous", "Per month"];
+  const cols = ["Year", "Rescues", "Venomous", "/mo"];
 
   return (
-    <div style={{ overflowX: "auto" }}>
+    <div>
       <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontSize: 13 }}>
         <thead>
           <tr>
             {cols.map(c => (
               <th key={c} style={{
                 textAlign: c === "Year" ? "left" : "right",
-                padding: "10px 16px",
+                padding: "10px 10px",
                 fontSize: 9,
                 fontWeight: 700,
-                letterSpacing: "0.15em",
+                letterSpacing: "0.12em",
                 color: T.textFaint,
                 borderBottom: `1px solid ${T.tableBorder}`,
                 whiteSpace: "nowrap",
@@ -379,15 +379,15 @@ function YearTrends({ rescues, years, T }) {
         <tbody>
           {rows.map(r => (
             <tr key={r.year} style={{ borderBottom: `1px solid ${T.tableBorder}` }}>
-              <td style={{ padding: "12px 16px" }}>
+              <td style={{ padding: "10px 10px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <div style={{ width: 3, height: 28, borderRadius: 2, background: r.color, flexShrink: 0 }} />
                   <span style={{ fontFamily: "'Outfit', system-ui, sans-serif", fontWeight: 700, color: r.color, fontSize: 15 }}>{r.year}</span>
                 </div>
               </td>
-              <td style={{ padding: "12px 16px", textAlign: "right", color: T.text, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" }}>{r.total}</td>
-              <td style={{ padding: "12px 16px", textAlign: "right", color: r.venPct > 60 ? "#b86858" : T.textMuted }}>{r.venPct}%</td>
-              <td style={{ padding: "12px 16px", textAlign: "right", color: T.textMuted }}>{r.perMonth}</td>
+              <td style={{ padding: "10px 10px", textAlign: "right", color: T.text, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" }}>{r.total}</td>
+              <td style={{ padding: "10px 10px", textAlign: "right", color: r.venPct > 60 ? "#b86858" : T.textMuted }}>{r.venPct}%</td>
+              <td style={{ padding: "10px 10px", textAlign: "right", color: T.textMuted }}>{r.perMonth}</td>
             </tr>
           ))}
         </tbody>
