@@ -167,7 +167,7 @@ function VenomousRing({ venomous, total, T }) {
 }
 
 // ── LOCATION BUBBLES ──────────────────────────────────────────────────────────
-function LocationBubbles({ rescues, T }) {
+function LocationBubbles({ rescues, T, onLocationClick }) {
   const locations = useMemo(() => {
     const counts = {};
     for (const r of rescues) {
@@ -190,14 +190,16 @@ function LocationBubbles({ rescues, T }) {
         const opacity = 0.4 + (count / max) * 0.6;
         const fontSize = Math.round(10 + (count / max) * 5);
         return (
-          <div key={loc} style={{
-            background: `rgba(200,135,58,${opacity * 0.15})`,
-            border: `1px solid rgba(200,135,58,${opacity * 0.35})`,
-            borderRadius: 20,
-            padding: `${Math.round(4 + scale * 3)}px ${Math.round(10 + scale * 6)}px`,
-            cursor: "default",
-            transition: "all 0.2s",
-          }}>
+          <div key={loc}
+            onClick={() => onLocationClick && onLocationClick(loc)}
+            style={{
+              background: `rgba(200,135,58,${opacity * 0.15})`,
+              border: `1px solid rgba(200,135,58,${opacity * 0.35})`,
+              borderRadius: 20,
+              padding: `${Math.round(4 + scale * 3)}px ${Math.round(10 + scale * 6)}px`,
+              cursor: onLocationClick ? "pointer" : "default",
+              transition: "all 0.2s",
+            }}>
             <span style={{
               fontSize,
               fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif",
@@ -722,6 +724,7 @@ export default function App() {
   const [browseFilter, setBrowseFilter] = useState("all");
   const [browseSpecies, setBrowseSpecies] = useState("");
   const [browseSearch, setBrowseSearch] = useState("");
+  const [browseLocation, setBrowseLocation] = useState("");
   const [randomRescue, setRandomRescue] = useState(null);
   const [darkMode, setDarkMode] = useState(() => {
     try { return localStorage.getItem("theme") !== "light"; } catch { return true; }
@@ -789,6 +792,7 @@ export default function App() {
     if (browseFilter === "video" && !r.youtubeId) return false;
     if (browseSpecies && normalizeSpecies(r.species) !== browseSpecies) return false;
     if (browseSearch && !normalizeSpecies(r.species).toLowerCase().includes(browseSearch.toLowerCase())) return false;
+    if (browseLocation && r.location !== browseLocation) return false;
     return true;
   });
 
@@ -995,7 +999,7 @@ export default function App() {
             {/* Year cards */}
             <div style={{ marginBottom: 44 }}>
               <div style={sectionLabel}>By year</div>
-              <div style={{ display: "flex", gap: 10, overflowX: "auto", paddingBottom: 4, WebkitOverflowScrolling: "touch" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(88px, 1fr))", gap: 10 }}>
                 {years.map((y, i) => {
                   const col = YEAR_COLORS[i % YEAR_COLORS.length];
                   return (
@@ -1004,9 +1008,9 @@ export default function App() {
                       onClick={() => { setMode("browse"); setBrowseYear(y); }}
                       style={{
                         background: `${col}12`, border: `1px solid ${col}25`,
-                        borderRadius: 14, padding: "18px 22px",
-                        cursor: "pointer", flexShrink: 0, textAlign: "center",
-                        transition: "all 0.2s", minWidth: 88,
+                        borderRadius: 14, padding: "18px 12px",
+                        cursor: "pointer", textAlign: "center",
+                        transition: "all 0.2s",
                       }}
                       onMouseEnter={e => { e.currentTarget.style.background = `${col}22`; e.currentTarget.style.borderColor = `${col}50`; }}
                       onMouseLeave={e => { e.currentTarget.style.background = `${col}12`; e.currentTarget.style.borderColor = `${col}25`; }}
@@ -1039,7 +1043,14 @@ export default function App() {
             <div style={{ marginBottom: 44 }}>
               <div style={sectionLabel}>Where they were found</div>
               <div style={{ background: T.cardBg, border: `1px solid ${T.tableBorder}`, borderRadius: 14, padding: "20px 24px" }}>
-                <LocationBubbles rescues={rescues} T={T} />
+                <LocationBubbles rescues={rescues} T={T} onLocationClick={loc => {
+                  setBrowseLocation(loc);
+                  setBrowseYear(null);
+                  setBrowseFilter("all");
+                  setBrowseSearch("");
+                  setBrowseSpecies("");
+                  setMode("browse");
+                }} />
               </div>
             </div>
 
@@ -1113,6 +1124,23 @@ export default function App() {
         {/* ── BROWSE ── */}
         {mode === "browse" && (
           <div>
+            {/* Active location filter banner */}
+            {browseLocation && (
+              <div style={{
+                display: "flex", alignItems: "center", justifyContent: "space-between",
+                background: "rgba(200,135,58,0.10)", border: "1px solid rgba(200,135,58,0.30)",
+                borderRadius: 10, padding: "10px 16px", marginBottom: 14,
+              }}>
+                <span style={{ fontSize: 13, color: "#c8873a", fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontWeight: 600 }}>
+                  📍 {browseLocation}
+                </span>
+                <button onClick={() => setBrowseLocation("")} style={{
+                  background: "none", border: "none", color: "#c8873a", cursor: "pointer",
+                  fontSize: 18, lineHeight: 1, padding: "0 4px",
+                }}>×</button>
+              </div>
+            )}
+
             {/* Search */}
             <div style={{ marginBottom: 14 }}>
               <input
